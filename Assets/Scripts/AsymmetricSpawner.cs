@@ -28,8 +28,10 @@ public class AsymmetricSpawner : MonoBehaviour
             response.PlayerPrefabHash = prefabToUse.GetComponent<NetworkObject>().PrefabIdHash;
         }
 
-        // 4. Set the unique spawn position directly in the response
-        response.Position = isHostPC ? Vector3.zero : new Vector3(2f, 0f, 0f);
+        // 4. Use the PC prefab's configured hovering position; preserve the VR spawn.
+        response.Position = isHostPC && pcPlayerPrefab != null
+            ? pcPlayerPrefab.transform.position
+            : new Vector3(2f, 0f, 0f);
         response.Rotation = Quaternion.identity;
     }
 }

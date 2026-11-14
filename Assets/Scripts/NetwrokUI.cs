@@ -3,25 +3,51 @@ using UnityEngine;
 
 public class NetworkUI : MonoBehaviour
 {
+    private Texture2D backgroundTexture;
+
+    void Awake()
+    {
+        backgroundTexture = new Texture2D(1, 1);
+        backgroundTexture.SetPixel(0, 0, new Color(0f, 0.3f, 0.8f, 1f));
+        backgroundTexture.Apply();
+    }
+
     void OnGUI()
     {
-        // Safeguard against null reference if NetworkManager hasn't initialized
         if (NetworkManager.Singleton == null) return;
 
-        // Only show the buttons if the network hasn't started yet
         if (!NetworkManager.Singleton.IsClient && !NetworkManager.Singleton.IsServer)
         {
-            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+            // Cover the entire screen
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), backgroundTexture);
 
-            if (GUILayout.Button("Start Host (PC)", GUILayout.Width(200), GUILayout.Height(50)))
+            // Center the button container on the screen. Increased height to 160 to fit everything.
+            float boxWidth = 200;
+            float boxHeight = 160;
+            Rect areaRect = new Rect((Screen.width - boxWidth) / 2, (Screen.height - boxHeight) / 2, boxWidth, boxHeight);
+
+            GUILayout.BeginArea(areaRect);
+
+            GUILayout.Label("Choose", GUI.skin.label);
+            GUILayout.Space(15);
+
+            if (GUILayout.Button("Computer", GUILayout.Width(200), GUILayout.Height(50)))
                 NetworkManager.Singleton.StartHost();
 
             GUILayout.Space(10);
 
-            if (GUILayout.Button("Start Client (VR)", GUILayout.Width(200), GUILayout.Height(50)))
+            if (GUILayout.Button("Virtual Reality", GUILayout.Width(200), GUILayout.Height(50)))
                 NetworkManager.Singleton.StartClient();
 
             GUILayout.EndArea();
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (backgroundTexture != null)
+        {
+            Destroy(backgroundTexture);
         }
     }
 }
