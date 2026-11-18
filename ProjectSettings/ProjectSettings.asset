@@ -931,11 +931,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 4b208fad-c77f-443c-9921-67651b63758e
+  cloudProjectId: b8ebda5f-39d7-4ab0-8cc0-962379a393a1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: House Design Together
-  organizationId: unity_1cbc2a3f65563c1091a8
+  organizationId: methoneo
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
